@@ -3,6 +3,11 @@
 #include "Adafruit_GFX.h"
 #include "Adafruit_ILI9341.h"
 
+#define FONTSIZE   2
+#define TEXTSIZE   FONTSIZE*8
+#define SPACING    2
+#define PERIOD     TEXTSIZE+SPACING
+
 void init_TFT();
 void clear_screen();
 int print_item(int line, char *iname, float value, char *unit);

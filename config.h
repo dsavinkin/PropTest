@@ -2,10 +2,6 @@
 
 //#define SD_ENABLE
 
-#define FONTSIZE   2
-#define TEXTSIZE   FONTSIZE*8
-#define SPACING    2
-#define PERIOD     TEXTSIZE+SPACING
 
 // For the Adafruit shield, these are the default.
 #define TFT_CS 10
@@ -16,6 +12,8 @@
 
 #ifdef SD_ENABLE
   #define SD_CS 6
-  // set up variables using the SD utility library functions:
-  Sd2Card card;
 #endif
+
+#define BUTTONS A0 //analog buttons are at A0 pin
+#define SENS_CURRENT A1
+#define SENS_VOLTAGE(n) 

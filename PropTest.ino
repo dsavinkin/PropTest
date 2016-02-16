@@ -25,8 +25,9 @@
 
 #ifdef SD_ENABLE
   #include "SD.h"
+  // set up variables using the SD utility library functions:
+  Sd2Card card;
 #endif
-
 
 HX711 scale(HX711_DOUT, HX711_PD_SCK);    // parameter "gain" is ommited; the default value 128 is used by the library
 
