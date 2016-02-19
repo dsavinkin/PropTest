@@ -1,27 +1,11 @@
 
-/***************************************************
-  This is our GFX example for the Adafruit ILI9341 Breakout and Shield
-  ----> http://www.adafruit.com/products/1651
-
-  Check out the links above for our tutorials and wiring diagrams
-  These displays use SPI to communicate, 4 or 5 pins are required to
-  interface (RST is optional)
-  Adafruit invests time and resources providing this open source code,
-  please support Adafruit and open-source hardware by purchasing
-  products from Adafruit!
-
-  Written by Limor Fried/Ladyada for Adafruit Industries.
-  MIT license, all text above must be included in any redistribution
- ****************************************************/
-
-
 #include "config.h"
+#include "main.h"
 #include "graphics.h"
+#include "keyboard.h"
 
-//#include "SPI.h"
-//#include "Adafruit_GFX.h"
-//#include "Adafruit_ILI9341.h"
 #include "HX711.h"
+#include "MsTimer2.h"
 
 #ifdef SD_ENABLE
   #include "SD.h"
@@ -33,10 +17,17 @@ HX711 scale(HX711_DOUT, HX711_PD_SCK);    // parameter "gain" is ommited; the de
 
 void setup() {
 
+/* First init display */
   init_TFT();
   clear_screen();
+
+/* Clear keyboard state */
+  init_keyboard();
   
   Serial.begin(9600);
+
+  MsTimer2::set (KEYBOARD_READ_PERIOD, read_keyboard); // 20ms period
+  MsTimer2::start ();  
 
 #ifdef SD_ENABLE
 
@@ -53,7 +44,6 @@ void setup() {
   } else {
     Serial.println("Wiring is correct and a card is present.");
   }
-  
 #endif
 
   Serial.println("HX711 Demo");

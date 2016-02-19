@@ -72,7 +72,7 @@ int  print_item(int line, char *iname, float value, char *unit)
 
 
 /*****************************************/
-/* Test functions */
+/*           Test functions              */
 /*****************************************/
 
 unsigned long testFillScreen() {
