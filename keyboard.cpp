@@ -9,7 +9,7 @@ const int BUTTON_HOLD_FRAMES = ((HOLD_TIME*1000)/KEYBOARD_READ_PERIOD);
 const int KEYBOARD_REPEAT_PERIOD = (1000/KEYBOARD_REPEAT_RATE);
 
 const char BUTTON_PINS[] = {BUTTON_UP_PIN, BUTTON_DOWN_PIN, BUTTON_OK_PIN, BUTTON_CANCEL_PIN};
-static char button_press_state[NUM_BUTTONS];
+static int button_press_state[NUM_BUTTONS];
 static char button_release_state[NUM_BUTTONS];
 
 /************************************
@@ -59,7 +59,8 @@ void read_keyboard()
 {
   for (int i = 0; i < NUM_BUTTONS; i++)
   {
-    if (digitalRead(BUTTON_PINS[i]))
+    /* low value == button pressed */ 
+    if (!(digitalRead(BUTTON_PINS[i])))
     {
       button_press_state[i]++;
     }
@@ -79,6 +80,11 @@ void read_keyboard()
  ************************************/
 int button_pressed(char id)
 {
+  Serial.print("button_pressed(");
+  Serial.print(id, DEC);
+  Serial.print(") - ");
+  Serial.println(button_press_state[id], DEC);
+
   /* TBD * Add repeat rate * TBD */
   /* do not clear button_press_state[i] - only return state */
   return (button_press_state[id] > 0);
@@ -93,6 +99,12 @@ int button_pressed(char id)
  ************************************/
 int button_released(char id)
 {
+  Serial.print("button_released(");
+  Serial.print(id, DEC);
+  Serial.print(") - ");
+  Serial.print(button_press_state[id], DEC);  
+  Serial.print(" - ");
+  Serial.println(button_release_state[id], DEC);  
   /* When button is pressed, set flag...
    * and then wait for button release.
    * If button_hold event got, flag is also cleared */
@@ -117,7 +129,7 @@ int button_released(char id)
   {
     ASSERT(false, "button_released: negative button_press_state");
   }
-  return -1;
+  return 0;
 }
 
 /************************************

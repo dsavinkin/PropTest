@@ -79,6 +79,7 @@ void setup() {
 
 }
 
+static int cur_pos = 1;
 
 void loop(void) {
 /*  for(uint8_t rotation=0; rotation<4; rotation++) {
@@ -93,8 +94,14 @@ void loop(void) {
   scale.power_up();  
   float weight = scale.get_units(1);
   scale.power_down();              // put the ADC in sleep mode
+  
+  if (button_released(BUTTON_UP))
+  {
+    cur_pos++;
+	if (cur_pos > 10) cur_pos = 1;
+  }
 
-  print_item(1, "Scale:", weight, "g");
+  print_item(cur_pos, "Scale:", weight, "g");
 
 
   loopcnt++;

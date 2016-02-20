@@ -58,7 +58,7 @@ int  print_item(int line, char *iname, float value, char *unit)
   int stPos;
   if (line <= 0) return -1;
   stPos = (line-1)*PERIOD;
-  tft.fillRect(0, stPos, 240, stPos + FONTSIZE*8, ILI9341_BLACK);
+  tft.fillRect(0, stPos, 240, stPos + TEXTSIZE, ILI9341_BLACK);
   tft.setCursor(2, stPos);
   tft.setTextColor(ILI9341_WHITE);  
   tft.setTextSize(FONTSIZE);

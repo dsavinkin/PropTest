@@ -10,6 +10,9 @@
 /*************************************************/
 /*                 Define pinouts                */
 /*************************************************/
+/* PWM pin */
+#define PWM_PIN 6
+
 /* TFT pins */
 #define TFT_CS 10
 #define TFT_DC 9
@@ -24,17 +27,18 @@
 #endif
 
 /* Keyboard pins */ 
-#define BUTTON_UP_PIN 1
-#define BUTTON_DOWN_PIN 2
-#define BUTTON_OK_PIN 3
-#define BUTTON_CANCEL_PIN 4
+#define BUTTON_UP_PIN 2
+#define BUTTON_DOWN_PIN 3
+#define BUTTON_OK_PIN 4
+#define BUTTON_CANCEL_PIN 5
 
 //#define BUTTONS A0 //analog buttons are at A0 pin
-//#define SENS_CURRENT A1
-//#define SENS_VOLTAGE(n) 
+#define SENS_CURRENT A0
+#define SENS_VOLTAGE A1
+#define SENS_VCELLS(n) A(n+1)
 
 /*************************************************/
-/*                Define parameters              */
+/*               Define parameters               */
 /*************************************************/
 #define KEYBOARD_READ_PERIOD 25 //ms
 #define HOLD_TIME 2 //seconds
