@@ -21,11 +21,6 @@
 #define HX711_DOUT 8 
 #define HX711_PD_SCK 7 
 
-/* SDCARD CS pin */
-#ifdef SD_ENABLE
-  #define SD_CS 6
-#endif
-
 /* Keyboard pins */ 
 #define BUTTON_UP_PIN 2
 #define BUTTON_DOWN_PIN 3
