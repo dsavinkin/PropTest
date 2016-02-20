@@ -5,7 +5,6 @@
 #include "keyboard.h"
 
 #include "HX711.h"
-#include "MsTimer2.h"
 
 #ifdef SD_ENABLE
   #include "SD.h"
@@ -21,13 +20,10 @@ void setup() {
   init_TFT();
   clear_screen();
 
-/* Clear keyboard state */
+/* Initialize keyboard */
   init_keyboard();
   
   Serial.begin(9600);
-
-  MsTimer2::set (KEYBOARD_READ_PERIOD, read_keyboard); // 20ms period
-  MsTimer2::start ();  
 
 #ifdef SD_ENABLE
 
@@ -80,60 +76,6 @@ void setup() {
   Serial.print("get units: \t\t");
   Serial.println(scale.get_units(5), 1);        // print the average of 5 readings from the ADC minus tare weight, divided 
             // by the SCALE parameter set with set_scale
-
-
-  /*
-  Serial.println(F("Benchmark                Time (microseconds)"));
-
-  Serial.print(F("Screen fill              "));
-  Serial.println(testFillScreen());
-  delay(500);
-
-  Serial.print(F("Text                     "));
-  Serial.println(testText());
-  delay(3000);
-
-  Serial.print(F("Lines                    "));
-  Serial.println(testLines(ILI9341_CYAN));
-  delay(500);
-
-  Serial.print(F("Horiz/Vert Lines         "));
-  Serial.println(testFastLines(ILI9341_RED, ILI9341_BLUE));
-  delay(500);
-
-  Serial.print(F("Rectangles (outline)     "));
-  Serial.println(testRects(ILI9341_GREEN));
-  delay(500);
-
-  Serial.print(F("Rectangles (filled)      "));
-  Serial.println(testFilledRects(ILI9341_YELLOW, ILI9341_MAGENTA));
-  delay(500);
-
-  Serial.print(F("Circles (filled)         "));
-  Serial.println(testFilledCircles(10, ILI9341_MAGENTA));
-
-  Serial.print(F("Circles (outline)        "));
-  Serial.println(testCircles(10, ILI9341_WHITE));
-  delay(500);
-
-  Serial.print(F("Triangles (outline)      "));
-  Serial.println(testTriangles());
-  delay(500);
-
-  Serial.print(F("Triangles (filled)       "));
-  Serial.println(testFilledTriangles());
-  delay(500);
-
-  Serial.print(F("Rounded rects (outline)  "));
-  Serial.println(testRoundRects());
-  delay(500);
-
-  Serial.print(F("Rounded rects (filled)   "));
-  Serial.println(testFilledRoundRects());
-  delay(500);
-
-  Serial.println(F("Done!"));
-*/
 
 }
 

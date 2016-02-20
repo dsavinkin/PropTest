@@ -1,27 +1,43 @@
 /* Configuration file for PropTest */
 
-/* Future growth - enable SDCARD support*/
+/*************************************************/
+/*                Enable peripherals             */
+/*************************************************/
+
+/* enable SDCARD support*/
 //#define SD_ENABLE
 
-
-// For the Adafruit shield, these are the default.
+/*************************************************/
+/*                 Define pinouts                */
+/*************************************************/
+/* TFT pins */
 #define TFT_CS 10
 #define TFT_DC 9
 
+/* ADC for scale sensor pins */
 #define HX711_DOUT 8 
 #define HX711_PD_SCK 7 
 
+/* SDCARD CS pin */
 #ifdef SD_ENABLE
   #define SD_CS 6
 #endif
 
 /* Keyboard pins */ 
-#define BUTTON_UP 1
-#define BUTTON_DOWN 2
-#define BUTTON_OK 3
-#define BUTTON_CANCEL 4
-
+#define BUTTON_UP_PIN 1
+#define BUTTON_DOWN_PIN 2
+#define BUTTON_OK_PIN 3
+#define BUTTON_CANCEL_PIN 4
 
 //#define BUTTONS A0 //analog buttons are at A0 pin
 //#define SENS_CURRENT A1
 //#define SENS_VOLTAGE(n) 
+
+/*************************************************/
+/*                Define parameters              */
+/*************************************************/
+#define KEYBOARD_READ_PERIOD 25 //ms
+#define HOLD_TIME 2 //seconds
+#define KEYBOARD_REPEAT_RATE  10  //times per sec
+#define KEYBOARD_REPEAT_DELAY 500 //msec
+
