@@ -63,6 +63,7 @@ void read_keyboard()
     if (!(digitalRead(BUTTON_PINS[i])))
     {
       button_press_state[i]++;
+      button_release_state[i] = 1;
     }
     else
     {
@@ -99,24 +100,21 @@ int button_pressed(char id)
  ************************************/
 int button_released(char id)
 {
-  Serial.print("button_released(");
-  Serial.print(id, DEC);
-  Serial.print(") - ");
-  Serial.print(button_press_state[id], DEC);  
-  Serial.print(" - ");
-  Serial.println(button_release_state[id], DEC);  
   /* When button is pressed, set flag...
    * and then wait for button release.
    * If button_hold event got, flag is also cleared */
-  if (button_press_state[id] > 0)
-  {
-    /* Set flag that we are waiting for button_release */
-    button_release_state[id] = 1;
-  }
-  else if (button_press_state[id] == 0)
+  if (button_press_state[id] == 0)
   {
     if ( button_release_state[id] == 1)
     {
+
+      Serial.print("button_released(");
+      Serial.print(id, DEC);
+      Serial.print(") - ");
+      Serial.print(button_press_state[id], DEC);  
+      Serial.print(" - ");
+      Serial.println(button_release_state[id], DEC);  
+      
       button_release_state[id] = 0;
       return 1;
     }
@@ -124,10 +122,6 @@ int button_released(char id)
     {
       return 0;
     }
-  }
-  else
-  {
-    ASSERT(false, "button_released: negative button_press_state");
   }
   return 0;
 }
@@ -143,8 +137,13 @@ int button_hold(char id)
 {
  if (button_press_state[id] > BUTTON_HOLD_FRAMES)
  {
-   button_release_state[id] = 0;
-   return 1;
+
+    Serial.print("button_hold(");
+    Serial.print(id, DEC);
+    Serial.print(") - ");
+    Serial.println(button_press_state[id], DEC);  
+    button_release_state[id] = 0;
+    return 1;
  }
  else
  {

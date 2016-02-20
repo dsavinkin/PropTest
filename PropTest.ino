@@ -95,7 +95,9 @@ void loop(void) {
   float weight = scale.get_units(1);
   scale.power_down();              // put the ADC in sleep mode
   
-  if (button_released(BUTTON_UP))
+//  if (button_pressed(BUTTON_UP))
+//  if (button_released(BUTTON_UP))
+  if (button_hold(BUTTON_UP))
   {
     cur_pos++;
 	if (cur_pos > 10) cur_pos = 1;
