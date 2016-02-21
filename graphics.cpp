@@ -53,7 +53,7 @@ void clear_screen()
  * Outputs : None
  * Returns : None
  ************************************/
-int  print_item(int line, char *iname, float value, char *unit)
+int  print_item(int line, char *iname, int value, char *unit)
 {
   int stPos;
   if (line <= 0) return -1;
@@ -63,7 +63,7 @@ int  print_item(int line, char *iname, float value, char *unit)
   tft.setTextColor(ILI9341_WHITE);  
   tft.setTextSize(FONTSIZE);
   tft.print("Scale: ");
-  tft.print(value,  0);  
+  tft.print(value,  DEC);  
   tft.print(" ");
   tft.print(unit);  
   
