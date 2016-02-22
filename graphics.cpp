@@ -67,6 +67,10 @@ int  print_item(int line, char *iname, float value, char *unit)
   tft.print(unit);  
 }
 
+void busy()
+{
+  tft.print(".");  
+}
 
 
 /*****************************************/

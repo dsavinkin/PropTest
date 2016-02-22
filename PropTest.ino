@@ -3,6 +3,7 @@
 #include "graphics.h"
 #include "keyboard.h"
 #include "scale.h"
+#include "esc.h"
 
 void setup() {
 /* First init serial */
@@ -12,11 +13,15 @@ void setup() {
   init_TFT();
   clear_screen();
 
+/* Initilize ESC PWM */  
+  init_esc();
+
 /* Initialize keyboard */
   init_keyboard();
 
 /* Initialize scale */
   init_scale();
+
 }
 
 static int cur_pos = 1;
@@ -44,6 +49,7 @@ void loop(void) {
   {
     cur_pos--;
     if (cur_pos < 1) cur_pos = 10;
+    set_esc((cur_pos-1)*10);
   }
 
   //  if (button_pressed(BUTTON_DOWN))
@@ -52,12 +58,19 @@ void loop(void) {
   {
     cur_pos++;
     if (cur_pos > 10) cur_pos = 1;
+    set_esc((cur_pos-1)*10);
+  }
+
+  if (button_released(BUTTON_OK))
+  {
+    tare_scale();
   }
 
   if (button_released(BUTTON_CANCEL))
   {
-    tare_scale();
+    stop_esc();
   }
+
 
   print_item(cur_pos, "Scale:", weight, "g");
 

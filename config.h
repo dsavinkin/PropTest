@@ -24,8 +24,8 @@
 /* Keyboard pins */ 
 #define BUTTON_UP_PIN 2
 #define BUTTON_DOWN_PIN 3
-#define BUTTON_OK_PIN 4
-#define BUTTON_CANCEL_PIN 5
+#define BUTTON_OK_PIN 5
+#define BUTTON_CANCEL_PIN 4
 
 //#define BUTTONS A0 //analog buttons are at A0 pin
 #define SENS_CURRENT A0
@@ -41,4 +41,12 @@
 #define KEYBOARD_REPEAT_DELAY 500 //msec
 
 #define SCALE_DIVIDOR_G 412
+
+#define ESC_OFF 899
+#define ESC_MIN 1000
+#define ESC_MAX 2000
+
+#define RISE_TIME 30 //seconds
+#define STALL_TIME 5 //seconds
+#define FALL_TIME 30 //seconds
 

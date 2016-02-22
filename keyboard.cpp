@@ -1,9 +1,9 @@
 
 #include "keyboard.h"
 #include "config.h"
-#include "arduino.h"
+#include <arduino.h>
 #include "main.h"
-#include "MsTimer2.h"
+#include <MsTimer2.h>
 
 const int BUTTON_HOLD_FRAMES = ((HOLD_TIME*1000)/KEYBOARD_READ_PERIOD);
 const int KEYBOARD_REPEAT_PERIOD = (1000/KEYBOARD_REPEAT_RATE);
