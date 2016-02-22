@@ -33,7 +33,7 @@ void loop(void) {
   static int loopcnt = 0;
   unsigned long start = micros(); 
 //  scale.power_up();  
-  int weight = read_scale();
+  double weight = read_scale();
 //  int weight = scale.read()/416;
 //  scale.power_down();              // put the ADC in sleep mode
   start = micros() - start;  

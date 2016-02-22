@@ -1,6 +1,6 @@
 #include "config.h"
-#include "HX711_int.h"
 #include "scale.h"
+#include <HX711.h>
 
 HX711 scale(HX711_DOUT, HX711_PD_SCK);    // parameter "gain" is ommited; the default value 128 is used by the library
 
@@ -34,7 +34,7 @@ void init_scale()
 
 	// scale.set_scale(2280.f);                      // this value is obtained by calibrating the scale with known weights; see the README for details
 	start = micros();
-	scale.set_scale(416);                      // this value is obtained by calibrating the scale with known weights; see the README for details
+	scale.set_scale(SCALE_DIVIDOR_G);                      // this value is obtained by calibrating the scale with known weights; see the README for details
 	Serial.println(micros() - start);
 	start = micros();
 	Serial.println("tare:");
@@ -66,10 +66,9 @@ void init_scale()
 	// by the SCALE parameter set with set_scale
 
   scale.power_up();  
-  
 }
 
-int read_scale()
+float read_scale()
 {
 	return (scale.get_units(1));
 }

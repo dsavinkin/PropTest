@@ -10,7 +10,7 @@ const int PERIOD = (TEXTSIZE+SPACING);
 
 void init_TFT();
 void clear_screen();
-int print_item(int line, char *iname, int value, char *unit);
+int print_item(int line, char *iname, float value, char *unit);
 
 /*****************************************/
 /* Test functions */

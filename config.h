@@ -40,3 +40,5 @@
 #define KEYBOARD_REPEAT_RATE  10  //times per sec
 #define KEYBOARD_REPEAT_DELAY 500 //msec
 
+#define SCALE_DIVIDOR_G 412
+
