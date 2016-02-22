@@ -30,7 +30,7 @@
 //#define BUTTONS A0 //analog buttons are at A0 pin
 #define SENS_CURRENT A0
 #define SENS_VOLTAGE A1
-#define SENS_VCELLS(n) A(n+1)
+#define SENS_VCELLS(n) A(n+1) //TBD
 
 /*************************************************/
 /*               Define parameters               */
@@ -46,7 +46,10 @@
 #define ESC_MIN 1000
 #define ESC_MAX 2000
 
-#define RISE_TIME 30 //seconds
-#define STALL_TIME 5 //seconds
-#define FALL_TIME 30 //seconds
+#define THRUST_LIMIT 5000
+#define THROTTLE_LIMIT 100
+
+#define RISE_TIME 10 //seconds
+#define STALL_TIME 1 //seconds
+#define FALL_TIME 10 //seconds
 

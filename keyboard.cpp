@@ -81,11 +81,12 @@ void read_keyboard()
  ************************************/
 int button_pressed(char id)
 {
+  /*
   Serial.print("button_pressed(");
   Serial.print(id, DEC);
   Serial.print(") - ");
   Serial.println(button_press_state[id], DEC);
-
+*/
   /* TBD * Add repeat rate * TBD */
   /* do not clear button_press_state[i] - only return state */
   return (button_press_state[id] > 0);

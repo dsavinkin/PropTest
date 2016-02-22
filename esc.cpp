@@ -48,10 +48,12 @@ int set_esc(float val)
   
   int valms = ESC_MIN + val*(ESC_MAX-ESC_MIN)/100;
   
+/*  
   Serial.print("set_esc - ");
   Serial.print(val);
   Serial.print(" - ");
   Serial.println(valms);
+*/  
   esc.writeMicroseconds(valms);  
   return valms;
 }
