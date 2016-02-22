@@ -1,11 +1,10 @@
+#include "config.h"
 #include "graphics.h"
-
 
 // Use hardware SPI (on Uno, #13, #12, #11) and the above for CS/DC
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 // If using the breakout, change pins as desired
 //Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST, TFT_MISO);
-
 
 /************************************ 
  * Name    : init_TFT
