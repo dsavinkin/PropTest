@@ -13,6 +13,9 @@ void setup() {
   init_TFT();
   clear_screen();
 
+/* Set 3v3 ADC reference */  
+  analogReference(EXTERNAL);
+
 /* Initilize ESC PWM */  
   init_esc();
 
@@ -74,12 +77,12 @@ void loop(void) {
   }
 
 
-    print_item(1, "Time     : ", 0, "s");
-    print_item(2, "Throttle : ", 0, "%");
-    print_item(3, "Thrust   : ", weight, "g");
-    print_item(4, "Current  : ", current, "A");
-    print_item(5, "Voltage  : ", voltage, "V");
-    print_item(6, "Watt     : ", voltage*current, "W");
+    print_item(1, "Time     ", 0, "s");
+    print_item(2, "Throttle ", 0, "%");
+    print_item(3, "Thrust   ", weight, "g");
+    print_item(4, "Current  ", current, "A");
+    print_item(5, "Voltage  ", voltage, "V");
+    print_item(6, "Watt     ", voltage*current, "W");
 
 
   loopcnt++;
@@ -129,12 +132,12 @@ int log_state(float ttime, float throttle, int throttlems)
     Serial.print("\t");
     Serial.println(voltage*current);
 
-    print_item(1, "Time     : ", ttime, "s");
-    print_item(2, "Throttle : ", throttle, "%");
-    print_item(3, "Thrust   : ", weight, "g");
-    print_item(4, "Current  : ", current, "A");
-    print_item(5, "Voltage  : ", voltage, "V");
-    print_item(6, "Watt     : ", voltage*current, "W");
+    print_item(1, "Time     ", ttime, "s");
+    print_item(2, "Throttle ", throttle, "%");
+    print_item(3, "Thrust   ", weight, "g");
+    print_item(4, "Current  ", current, "A");
+    print_item(5, "Voltage  ", voltage, "V");
+    print_item(6, "Watt     ", voltage*current, "W");
   }
   else
   {
