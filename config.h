@@ -28,9 +28,9 @@
 #define BUTTON_CANCEL_PIN 4
 
 //#define BUTTONS A0 //analog buttons are at A0 pin
-#define SENS_CURRENT A0
-#define SENS_VOLTAGE A1
-#define SENS_VCELLS(n) A(n+1) //TBD
+#define SENS_CURRENT 0
+#define SENS_VOLTAGE 1
+#define SENS_VCELLS(n) (n+1) //TBD
 
 /*************************************************/
 /*               Define parameters               */
@@ -41,6 +41,8 @@
 #define KEYBOARD_REPEAT_DELAY 500 //msec
 
 #define SCALE_DIVIDOR_G 412
+#define CURRENT_DIVIDOR_A 10.0f
+#define VOLTAGE_DIVIDOR_V 23.62f
 
 #define ESC_OFF 899
 #define ESC_MIN 1000

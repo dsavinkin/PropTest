@@ -61,8 +61,8 @@ int  print_item(int line, char *iname, float value, char *unit)
   tft.setCursor(2, stPos);
   tft.setTextColor(ILI9341_WHITE);  
   tft.setTextSize(FONTSIZE);
-  tft.print("Scale: ");
-  tft.print(value, 0);  
+  tft.print(iname);
+  tft.print(value, 2);  
   tft.print(" ");
   tft.print(unit);  
 }

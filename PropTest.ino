@@ -38,12 +38,13 @@ void loop(void) {
 
   static int loopcnt = 0;
   unsigned long start = micros(); 
-//  scale.power_up();  
-  double weight = read_scale();
-//  int weight = scale.read()/416;
-//  scale.power_down();              // put the ADC in sleep mode
-  start = micros() - start;  
-  
+  //scale.power_up();  
+  float weight = read_scale();
+  float current = ((float)analogRead(SENS_CURRENT))/CURRENT_DIVIDOR_A;
+  float voltage = ((float)analogRead(SENS_VOLTAGE))/VOLTAGE_DIVIDOR_V;
+  //scale.power_down();              // put the ADC in sleep mode
+
+  /*
 //  if (button_pressed(BUTTON_UP))
   if (button_released(BUTTON_UP))
 //  if (button_hold(BUTTON_UP))
@@ -61,7 +62,7 @@ void loop(void) {
     if (cur_pos > 10) cur_pos = 1;
     set_esc((cur_pos-1)*10);
   }
-
+*/
   if (button_released(BUTTON_OK))
   {
     start_test(RISE_FALL);
@@ -73,7 +74,12 @@ void loop(void) {
   }
 
 
-  print_item(cur_pos, "Scale:", weight, "g");
+    print_item(1, "Time     : ", 0, "s");
+    print_item(2, "Throttle : ", 0, "%");
+    print_item(3, "Thrust   : ", weight, "g");
+    print_item(4, "Current  : ", current, "A");
+    print_item(5, "Voltage  : ", voltage, "V");
+    print_item(6, "Watt     : ", voltage*current, "W");
 
 
   loopcnt++;
@@ -86,7 +92,66 @@ void loop(void) {
     Serial.println(start);
   }
 */  
-//  delay(500);
+//  delay(1000);
+  
+}
+
+
+/************************************ 
+ * Name    : log_state
+ * Purpuse : Read and log sensors data to Serial
+ * Inputs  : ttime
+ *           throttle
+ *           throttlems
+ * Outputs : None
+ * Returns : None
+ ************************************/
+int log_state(float ttime, float throttle, int throttlems)
+{
+
+  if (ttime >= 0)
+  {
+    float weight = abs(read_scale());  
+    float current = ((float)analogRead(SENS_CURRENT))/CURRENT_DIVIDOR_A;
+    float voltage = ((float)analogRead(SENS_VOLTAGE))/VOLTAGE_DIVIDOR_V;
+      
+    Serial.print(ttime);
+    Serial.print("\t");
+    Serial.print(throttle);
+    Serial.print("\t");
+    Serial.print(throttlems);
+    Serial.print("\t");
+    Serial.print(weight);
+    Serial.print("\t");
+    Serial.print(current);
+    Serial.print("\t");
+    Serial.print(voltage);
+    Serial.print("\t");
+    Serial.println(voltage*current);
+
+    print_item(1, "Time     : ", ttime, "s");
+    print_item(2, "Throttle : ", throttle, "%");
+    print_item(3, "Thrust   : ", weight, "g");
+    print_item(4, "Current  : ", current, "A");
+    print_item(5, "Voltage  : ", voltage, "V");
+    print_item(6, "Watt     : ", voltage*current, "W");
+  }
+  else
+  {
+    Serial.print("Time");
+    Serial.print("\t");
+    Serial.print("Trottle");
+    Serial.print("\t");
+    Serial.print("_MS");
+    Serial.print("\t");
+    Serial.print("Thrust");
+    Serial.print("\t");
+    Serial.print("Current");
+    Serial.print("\t");
+    Serial.print("Voltage");
+    Serial.print("\t");
+    Serial.println("Watt");    
+  }
   
 }
 
@@ -117,6 +182,9 @@ int start_test(TEST_MODES mode)
 
   Serial.print("START TEST mode = ");
   Serial.println(mode);
+  log_state(-1, 0, 0);
+  //scale.power_up();  
+  
   stop_esc();
   tare_scale();
   
@@ -130,15 +198,7 @@ int start_test(TEST_MODES mode)
       throttlems = set_esc(throttle);
       delay(10); //some delay after setting new PWM value
       TEST_CANCEL;
-      weight = abs(read_scale()); //~50ms to read
-      
-      Serial.print((micros() - absstart)/1000000.0f);
-      Serial.print("\t");
-      Serial.print(throttle);
-      Serial.print("\t");
-      Serial.print(throttlems);
-      Serial.print("\t");
-      Serial.println(weight);
+      log_state((micros() - absstart)/1000000.0f, throttle, throttlems);
     }
 
     for (unsigned long starttime = micros(); 
@@ -148,15 +208,7 @@ int start_test(TEST_MODES mode)
       throttlems = set_esc(throttle);
       delay(10); //some delay after setting new PWM value
       TEST_CANCEL;
-      weight = abs(read_scale()); //~50ms to read
-      
-      Serial.print((micros() - absstart)/1000000.0f);
-      Serial.print("\t");
-      Serial.print(throttle);
-      Serial.print("\t");
-      Serial.print(throttlems);
-      Serial.print("\t");
-      Serial.println(weight);
+      log_state((micros() - absstart)/1000000.0f, throttle, throttlems);
     }
   }
 
@@ -170,20 +222,14 @@ int start_test(TEST_MODES mode)
       throttlems = set_esc(throttle);
       delay(10); //some delay after setting new PWM value
       TEST_CANCEL;
-      weight = abs(read_scale()); //~50ms to read
-      
-      Serial.print((micros() - absstart)/1000000.0f);
-      Serial.print("\t");
-      Serial.print(throttle);
-      Serial.print("\t");
-      Serial.print(throttlems);
-      Serial.print("\t");
-      Serial.println(weight);
+      log_state((micros() - absstart)/1000000.0f, throttle, throttlems);
     }
   }
   
   stop_esc();
   Serial.println("END TEST");
+
+  //scale.power_down();  
  
   return 0;  
 }
