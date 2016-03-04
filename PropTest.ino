@@ -117,6 +117,12 @@ int log_state(float ttime, float throttle, int throttlems)
     float weight = abs(read_scale());  
     float current = ((float)analogRead(SENS_CURRENT))/CURRENT_DIVIDOR_A;
     float voltage = ((float)analogRead(SENS_VOLTAGE))/VOLTAGE_DIVIDOR_V;
+    float watt = voltage*current;
+    float eff = 0;
+    if (watt != 0) 
+    {
+      eff = weight/watt;
+    }
       
     Serial.print(ttime);
     Serial.print("\t");
@@ -130,14 +136,18 @@ int log_state(float ttime, float throttle, int throttlems)
     Serial.print("\t");
     Serial.print(voltage);
     Serial.print("\t");
-    Serial.println(voltage*current);
+    Serial.print(watt);
+    Serial.print("\t");
+    Serial.print(eff);
+    Serial.println();
 
     print_item(1, "Time     ", ttime, "s");
     print_item(2, "Throttle ", throttle, "%");
     print_item(3, "Thrust   ", weight, "g");
     print_item(4, "Current  ", current, "A");
     print_item(5, "Voltage  ", voltage, "V");
-    print_item(6, "Watt     ", voltage*current, "W");
+    print_item(6, "Watt     ", watt, "W");
+    print_item(7, "EFF      ", eff, "g/W");
   }
   else
   {
@@ -153,7 +163,10 @@ int log_state(float ttime, float throttle, int throttlems)
     Serial.print("\t");
     Serial.print("Voltage");
     Serial.print("\t");
-    Serial.println("Watt");    
+    Serial.print("Watt");    
+    Serial.print("\t");
+    Serial.print("g/W");    
+    Serial.println();
   }
   
 }
